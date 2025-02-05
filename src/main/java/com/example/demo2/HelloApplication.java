@@ -28,25 +28,22 @@ public class HelloApplication extends Application {
     private MenuItem calculadora;
     private Scene escena;
 
-    public static void initScene(){
+
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        stage.setTitle("EJEMPLO DE VENTANA");
         calculadora = new MenuItem("MI CALCULADORA");
         competencia1 =new Menu("COMPETENCIA 1");
         competencia1.getItems().addAll(calculadora);
         menu_principal = new MenuBar();
         menu_principal.getMenus().addAll(competencia1,competencia2);
-    }
+        contenedor = new HBox(menu_principal);
+        escena = new Scene(contenedor,500,200);
+        stage.setScene(escena);
+        stage.show();
+        stage.setMaximized(true);
 
-
-    @Override
-    public void start(Stage stage) throws IOException {
-            initScene();
-
-            menu_principal = new MenuBar(competencia1,competencia2);
-            contenedor = new HBox(menu_principal);
-            stage.setTitle("EJEMPLO DE VENTANA");
-            stage.setScene(new Scene(contenedor,500,200));
-            stage.show();
-            stage.setMaximized(true);
     }
 
 
