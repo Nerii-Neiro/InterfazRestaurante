@@ -1,0 +1,77 @@
+.root{
+    -fx-background-image: url("../imagenes/57749104-blue-white-light-polygonal-mosaic-background-business-design.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+
+.display-fondo:hover{
+    -fx-background-color: rgba(200, 255, 200, 0.46);
+    -fx-border-color: rgba(152, 152, 152, 0.77);
+}
+
+.menu-item:hover{
+    -fx-background-color: #9090f6;
+}
+
+.display-fondo{
+    -fx-padding: 17px;
+    -fx-border-radius: 15px;
+    -fx-border-color: rgba(0, 37, 0, 0.77);
+    -fx-background-color: rgba(138, 252, 138, 0.46);
+    -fx-text-fill: black;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 25;
+    -fx-font-weight: bolder;
+}
+
+
+
+.button{
+    -fx-background-color: red;
+}
+
+.botones-negros:hover{
+    -fx-background-color: #232323;
+}
+
+.botones-rojos:hover{
+    -fx-background-color: #ff5757;
+}
+
+.botones-azules:hover{
+    -fx-background-color: #48a2ff;
+}
+
+.botones-negros{
+    -fx-text-fill: white;
+    -fx-background-color: #070000;
+    -fx-font-size: 15;
+    -fx-font-weight: bolder;
+    -fx-font-family: sans-serif;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+
+.botones-rojos{
+    -fx-text-fill: white;
+    -fx-background-color: #fa0909;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-size: 15;
+    -fx-font-weight: bolder;
+    -fx-font-family: sans-serif;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+
+.botones-azules{
+    -fx-text-fill: white;
+    -fx-background-color: #0080ff;
+    -fx-font-size: 15;
+    -fx-font-weight: bolder;
+    -fx-font-family: sans-serif;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+

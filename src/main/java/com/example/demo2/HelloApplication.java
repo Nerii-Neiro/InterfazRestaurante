@@ -48,7 +48,7 @@ public class HelloApplication extends Application {
         menu_principal.getMenus().addAll(competencia1,competencia2);
         contenedor = new HBox(menu_principal);
         escena = new Scene(contenedor,500,200);
-
+        escena.getStylesheets().add(getClass().getResource("/css/interfacecustom.css").toString());
         stage.setScene(escena);
         stage.show();
         stage.setMaximized(true);
