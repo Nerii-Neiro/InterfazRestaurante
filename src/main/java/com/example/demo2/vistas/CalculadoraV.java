@@ -193,7 +193,7 @@ class Reconocedor {
                     if(temp_op_1<0){
                         resultado=0;
                         is_error=1;
-                        error="Error.FactorialNegativo.";
+                        error="ErrFactNegativo.";
                     }
                     else{
                         int n = (int) temp_op_1;
@@ -205,7 +205,7 @@ class Reconocedor {
                     if(temp_op_1<0){
                         resultado=0;
                         is_error=1;
-                        error="Error.NumeroImagianario.";
+                        error="Err.NumeroImg.";
                     }
                     else{
                         resultado=Math.sqrt(temp_op_1);
@@ -220,7 +220,7 @@ class Reconocedor {
                     if (temp_op_2 == 0) {
                         is_error = 1;
                         resultado = 0;
-                        error = "Error.DivisionEntre0";
+                        error = "Err.Division/Zero";
                     } else {
                         resultado = temp_op_1 / temp_op_2;
                     }
