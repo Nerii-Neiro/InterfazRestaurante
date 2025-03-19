@@ -77,7 +77,7 @@ public class reservaciones extends Stage {
         enviar=new Button("Guardar");
         enviar.setOnAction(event->{
 
-            //
+            //p
             objeto.setFecha(fecha.getText());
             objeto.setHora(hora.getText());
             objeto.setObservaciones(observaciones.getText());
