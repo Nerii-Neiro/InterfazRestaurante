@@ -7,5 +7,9 @@ module com.example.demo2 {
     requires java.desktop;
 
     opens com.example.demo2 to javafx.fxml;
+    requires org.kordamp.bootstrapfx.core;
     exports com.example.demo2;
+    requires mysql.connector.j;
+    requires java.sql;
+    opens com.example.demo2.modulos;
 }

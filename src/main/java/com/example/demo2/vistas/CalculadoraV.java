@@ -38,6 +38,7 @@ public class CalculadoraV extends Stage{
         contenedor_padre.setPadding(new Insets(10));
         escena = new Scene(contenedor_padre,250,300);
         escena.getStylesheets().add(getClass().getResource("/css/custom.css").toString());
+        //System.out.println(getClass().getResource("/css/custom.css").toString());
     }
 }
 

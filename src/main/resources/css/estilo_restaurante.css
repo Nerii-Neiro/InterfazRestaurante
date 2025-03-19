@@ -1,0 +1,186 @@
+.root{
+    -fx-background-image: url("../imagenes/57749104-blue-white-light-polygonal-mosaic-background-business-design.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: sans-serif;
+    -fx-font-weight: bolder;
+    -fx-font-size: 15;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+
+.display-fondo:hover{
+    -fx-background-color: rgba(0, 0, 0, 0.44);
+    -fx-border-color: rgba(255, 255, 255, 0.94);
+    -fx-text-fill: white;
+}
+
+.display-fondo{
+    -fx-border-color: rgba(0, 0, 0, 0.87);
+    -fx-background-color: rgba(255, 255, 255, 0.84);
+    -fx-text-fill: black;
+    -fx-border-width: 4px;
+    -fx-text-alignment: center;
+    -fx-padding: 7px 0px 7px 0px;
+    -fx-border-radius: 15px;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 20;
+    -fx-font-weight: bolder;
+    -fx-background-radius: 15;
+}
+
+.borde_cuadro{
+    -fx-border-width: 0px;
+}
+
+.borde_cuadro:hover{
+    -fx-border-color: #10daec;
+}
+
+.button{
+    -fx-background-color: red;
+    -fx-padding: 5px 30px 5px 30px;
+
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-font-weight: bolder;
+    -fx-font-family: sans-serif;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+
+.title_space{
+    -fx-background-color: rgba(255, 255, 255, 0.76);
+    -fx-text-fill: black;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 15px;
+    -fx-font-size: 50px;
+
+}
+
+.title_space:hover{
+    -fx-text-fill: white;
+    -fx-background-color: rgba(0, 0, 0, 0.7);
+}
+
+#explosion_color{
+    -fx-text-alignment: justify;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 18;
+    -fx-font-weight: normal;
+    -fx-start-margin: 5px;
+    -fx-background-color: rgba(0, 0, 0, 0.66);
+}
+
+#explosion_color:hover{
+    -fx-background-color: rgba(255, 255, 255, 0.76);
+    -fx-text-fill: black;
+}
+
+.label{
+    -fx-text-alignment: center;
+    -fx-text-fill: black;
+    -fx-font-family: "Bitstream Charter";
+    -fx-font-size: 20;
+    -fx-font-weight: bolder;
+    -fx-alignment: center;
+}
+
+
+.botones-negros:hover{
+    -fx-background-color: #616161;
+    -fx-border-color: #aaaaaa;
+}
+
+.botones-rojos:hover{
+    -fx-background-color: #ff5757;
+}
+
+.botones-azules:hover{
+    -fx-background-color: #48a2ff;
+}
+
+.botones-negros{
+    -fx-text-fill: white;
+    -fx-background-color: #070000;
+    -fx-font-size: 23;
+    -fx-font-weight: bolder;
+    -fx-font-family: sans-serif;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-border-color: white;
+    -fx-border-width: 3px;
+    -fx-padding: 5px 10px 5px 10px;
+}
+
+.botones-rojos{
+    -fx-text-fill: white;
+    -fx-background-color: #fa0909;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-size:23;
+    -fx-font-weight: bold;
+    -fx-font-family: sans-serif;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 5px 10px 5px 10px;
+}
+
+.botones-azules{
+    -fx-text-fill: white;
+    -fx-background-color: #0080ff;
+    -fx-font-size: 15;
+    -fx-font-weight: bolder;
+    -fx-font-family: sans-serif;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+
+.botones-alta{
+    -fx-padding: 5px 40px 5px 40px;
+    -fx-background-color: #531df3;
+}
+.botones-alta:hover{
+    -fx-background-color: #7952ed;;
+}
+
+.botones-media{
+    -fx-padding: 5px 40px 5px 40px;
+    -fx-background-color: #0989f3;
+}
+.botones-media:hover{
+    -fx-background-color: #5ca5ed;;
+}
+
+.botones-baja{
+    -fx-padding: 5px 40px 5px 40px;
+    -fx-background-color: #12bd4c;
+}
+.botones-baja:hover{
+    -fx-background-color: #83f49a;;
+}
+
+.text_root{
+    -fx-background-color: black;
+    -fx-font-family: sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -fx-text-fill: white;
+}
+
+.btn{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.boton-generico{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 30 20;
+    -fx-border-color: black;
+    -fx-border-radius: 25;
+}
+

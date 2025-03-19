@@ -75,3 +75,26 @@
     -fx-background-radius: 20;
 }
 
+.progress-bar{
+    -fx-padding: 3px;
+    -fx-pref-width: 250px;
+    -fx-pref-height: 55px;
+    -fx-border-radius: 15px;
+    -fx-border-color: rgba(0, 37, 0, 0.77);
+    -fx-background-color: rgba(138, 252, 138, 0.46);
+}
+
+.progress-indicator{
+    -fx-padding: 2px;
+    -fx-pref-width: 250px;
+    -fx-pref-height: 55px;
+    -fx-border-radius: 15px;
+    -fx-background-color: rgba(14, 101, 202, 0.46);
+}
+
+.paralabel{
+    -fx-text-fill: black;
+    -fx-font-size: 15;
+    -fx-font-weight: bolder;
+    -fx-font-family: sans-serif;
+}
