@@ -4,7 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoriasDAO {
 
@@ -68,6 +71,25 @@ public class CategoriasDAO {
         return lista;
     }
 
+    public List<Categoria> Obtener_Categorias(){
+        String query = "SELECT * FROM Categorias";
+        List<Categoria> lista= new ArrayList<>();
+         try{
+             Statement stmt = conexion.connection.createStatement();
+             ResultSet result = stmt.executeQuery(query);
+             while(result.next()){
+                lista.add(new Categoria(result.getInt("id_categoria"),result.getString("nombre"),result.getString("descripcion")));
+             }
+         }
+         catch(Exception e){}
+
+
+
+       return lista;
+    }
+
+
+
     public void DELETE(){
         String query = "DELETE FROM Categorias WHERE id_categoria="+id_categoria;
         try{
@@ -106,3 +128,4 @@ public class CategoriasDAO {
         this.descripcion = descripcion;
     }
 }
+

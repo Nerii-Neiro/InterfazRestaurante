@@ -83,7 +83,7 @@ public class vista_proveedores extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -103,6 +103,16 @@ public class vista_proveedores extends Stage{
         table_email.setCellValueFactory(new PropertyValueFactory<>("email"));
         TableColumn<ProveedoresDAO,String> table_nota = new TableColumn<>("Nota");
         table_nota.setCellValueFactory(new PropertyValueFactory<>("nota"));
+
+
+        table_id.setPrefWidth(250);
+        table_nombre.setPrefWidth(250);
+        table_telefono.setPrefWidth(250);
+        table_direccion.setPrefWidth(250);
+        table_email.setPrefWidth(250);
+        table_nota.setPrefWidth(250);
+
+
 
         TableColumn<ProveedoresDAO,String> editar_ = new TableColumn<>("Editar");
         editar_.setCellFactory(new Callback<TableColumn<ProveedoresDAO, String>, TableCell<ProveedoresDAO, String>>() {

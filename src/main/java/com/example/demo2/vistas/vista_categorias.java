@@ -18,7 +18,7 @@ public class vista_categorias extends Stage{
 
 
     private ToolBar menu;
-        private TableView<CategoriasDAO> table_categarias;
+    private TableView<CategoriasDAO> table_categarias;
     private VBox contenedor_padre;
     private Scene escena;
     private Button agregar ;
@@ -83,7 +83,7 @@ public class vista_categorias extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -98,6 +98,7 @@ public class vista_categorias extends Stage{
         TableColumn<CategoriasDAO,String> table_direccion = new TableColumn<>("Descripcion");
         table_direccion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
 
+        table_id.setPrefWidth(200);
         table_nombre.setPrefWidth(200);
         table_direccion.setPrefWidth(500);
 

@@ -83,7 +83,7 @@ public class vista_reservaciones extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -99,6 +99,11 @@ public class vista_reservaciones extends Stage{
         table_hora.setCellValueFactory(new PropertyValueFactory<>("hora"));
         TableColumn<ReservacionesDAO,String> table_observaciones = new TableColumn<>("Observaciones");
         table_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
+
+        table_id.setPrefWidth(250);
+        table_fecha.setPrefWidth(250);
+        table_hora.setPrefWidth(250);
+        table_observaciones.setPrefWidth(250);
 
         TableColumn<ReservacionesDAO,String> editar_ = new TableColumn<>("Editar");
         editar_.setCellFactory(new Callback<TableColumn<ReservacionesDAO, String>, TableCell<ReservacionesDAO, String>>() {

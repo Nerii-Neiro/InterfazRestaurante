@@ -83,7 +83,7 @@ public class vista_reservacionmesa extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -97,6 +97,10 @@ public class vista_reservacionmesa extends Stage{
         table_idreservacion.setCellValueFactory(new PropertyValueFactory<>("id_reservacion"));
         TableColumn<ReservacionMesaDAO,String> table_idmesa = new TableColumn<>("ID_Mesa");
         table_idmesa.setCellValueFactory(new PropertyValueFactory<>("id_mesa"));
+
+        table_id.setPrefWidth(250);
+        table_idreservacion.setPrefWidth(250);
+        table_idmesa.setPrefWidth(250);
 
 
         TableColumn<ReservacionMesaDAO,String> editar_ = new TableColumn<>("Editar");

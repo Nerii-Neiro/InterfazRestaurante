@@ -83,7 +83,7 @@ public class vista_insumos extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -105,6 +105,13 @@ public class vista_insumos extends Stage{
         table_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
         TableColumn<InsumosDAO,String> table_idproveedor = new TableColumn<>("ID_Proveedor");
         table_idproveedor.setCellValueFactory(new PropertyValueFactory<>("id_proveedor"));
+
+        table_id.setPrefWidth(250);
+        table_nombre.setPrefWidth(250);
+        table_cantidad.setPrefWidth(250);
+        table_descripcion.setPrefWidth(250);
+        table_observaciones.setPrefWidth(250);
+        table_idproveedor.setPrefWidth(250);
 
         TableColumn<InsumosDAO,String> editar_ = new TableColumn<>("Editar");
         editar_.setCellFactory(new Callback<TableColumn<InsumosDAO, String>, TableCell<InsumosDAO, String>>() {

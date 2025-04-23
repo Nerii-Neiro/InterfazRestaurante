@@ -82,7 +82,7 @@ public class vista_detproducto extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -104,6 +104,14 @@ public class vista_detproducto extends Stage{
         table_obs.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
         TableColumn<DetProductoDAO,String> table_descripcion = new TableColumn<>("Descripcion");
         table_descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+
+        table_id.setPrefWidth(250);
+        table_idproducto.setPrefWidth(250);
+        table_idinsumo.setPrefWidth(250);
+        table_cant.setPrefWidth(250);
+        table_caducidad.setPrefWidth(250);
+        table_obs.setPrefWidth(250);
+        table_descripcion.setPrefWidth(250);
 
         TableColumn<DetProductoDAO,String> editar_ = new TableColumn<>("Editar");
         editar_.setCellFactory(new Callback<TableColumn<DetProductoDAO, String>, TableCell<DetProductoDAO, String>>() {

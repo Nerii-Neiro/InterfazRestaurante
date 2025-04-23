@@ -82,7 +82,7 @@ public class vista_mesas extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -96,6 +96,11 @@ public class vista_mesas extends Stage{
         table_capacidad.setCellValueFactory(new PropertyValueFactory<>("capacidad"));
         TableColumn<MesasDAO,String> table_tipo = new TableColumn<>("Tipo");
         table_tipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+
+        table_id_jj.setPrefWidth(250);
+        table_capacidad.setPrefWidth(250);
+        table_tipo.setPrefWidth(250);
+
 
         TableColumn<MesasDAO,String> editar_ = new TableColumn<>("Editar");
         editar_.setCellFactory(new Callback<TableColumn<MesasDAO, String>, TableCell<MesasDAO, String>>() {

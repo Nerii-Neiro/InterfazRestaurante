@@ -81,7 +81,7 @@ public class vista_clientes extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -99,6 +99,7 @@ public class vista_clientes extends Stage{
         table_telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         TableColumn<ClientesDAO,String> table_email = new TableColumn<>("Correo Electronico");
         table_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+
 
         TableColumn<ClientesDAO,String> editar_ = new TableColumn<>("Editar");
         editar_.setCellFactory(new Callback<TableColumn<ClientesDAO, String>, TableCell<ClientesDAO, String>>() {

@@ -82,7 +82,7 @@ public class vista_detorden extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -100,6 +100,12 @@ public class vista_detorden extends Stage{
         table_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         TableColumn<DetOrdenDAO,String> table_precio = new TableColumn<>("Precio");
         table_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+
+        table_id.setPrefWidth(250);
+        table_idorden.setPrefWidth(250);
+        table_idproducto.setPrefWidth(250);
+        table_cantidad.setPrefWidth(250);
+        table_precio.setPrefWidth(250);
 
         TableColumn<DetOrdenDAO,String> editar_ = new TableColumn<>("Editar");
         editar_.setCellFactory(new Callback<TableColumn<DetOrdenDAO, String>, TableCell<DetOrdenDAO, String>>() {

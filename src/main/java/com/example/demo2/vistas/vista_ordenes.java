@@ -83,7 +83,7 @@ public class vista_ordenes extends Stage{
         this.contenedor_padre.setSpacing(30);
         contenedor_padre.setPadding(new Insets(20));
         this.contenedor_padre.setAlignment(Pos.CENTER);
-        this.escena=new Scene(contenedor_padre,1200,600);
+        this.escena=new Scene(contenedor_padre,1350,600);
         this.escena.getStylesheets().add(getClass().getResource("/css/estilo_restaurante.css").toString());
         this.agregar.getStyleClass().add("botones-negros");
         this.salir.getStyleClass().add("botones-rojos");
@@ -109,6 +109,16 @@ public class vista_ordenes extends Stage{
         table_idempleado.setCellValueFactory(new PropertyValueFactory<>("id_empleado"));
         TableColumn<OrdenesDAO,String> table_total = new TableColumn<>("Total");
         table_total.setCellValueFactory(new PropertyValueFactory<>("total"));
+
+        table_id.setPrefWidth(250);
+        table_fecha.setPrefWidth(250);
+        table_hora.setPrefWidth(250);
+        table_descripcion.setPrefWidth(250);
+        table_notas.setPrefWidth(250);
+        table_idcliente.setPrefWidth(250);
+        table_idmesa.setPrefWidth(250);
+        table_idempleado.setPrefWidth(250);
+        table_total.setPrefWidth(250);
 
         TableColumn<OrdenesDAO,String> editar_ = new TableColumn<>("Editar");
         editar_.setCellFactory(new Callback<TableColumn<OrdenesDAO, String>, TableCell<OrdenesDAO, String>>() {
