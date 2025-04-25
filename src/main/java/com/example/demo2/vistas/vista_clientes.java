@@ -1,6 +1,7 @@
 package com.example.demo2.vistas;
 
 import com.example.demo2.Componenetes.ButtonCell;
+import com.example.demo2.VentanaPrincipal;
 import com.example.demo2.modulos.ClientesDAO;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -72,6 +73,7 @@ public class vista_clientes extends Stage{
 
         this.salir.setOnAction(event->{
             this.close();
+            new VentanaPrincipal();
         });
         this.agregar.setOnAction(event->{
             new cliente(table_clientes,null,"Nuevo Cliente:");

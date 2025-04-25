@@ -1,5 +1,5 @@
 .root{
-    -fx-background-image: url("../imagenes/fondo_restaurante.jpg");
+    -fx-background-image: url("../imagenes/hh.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-text-alignment: center;
@@ -148,6 +148,15 @@
     -fx-background-color: #7952ed;;
 }
 
+.botones-alta2{
+    -fx-border-radius: 0px;
+    -fx-padding: 8px 8px 8px 8px;
+    -fx-background-color: rgba(126, 202, 230, 0.77);
+}
+.botones-alta2:hover{
+    -fx-background-color: #9a7afb;;
+}
+
 .optical{
     -fx-padding: 8px 6px 8px 6px;
     -fx-background-color: rgba(64, 251, 237, 0.72);
@@ -156,12 +165,33 @@
     -fx-background-color: #247f9c;;
 }
 
+.fondo_interf{
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+
+.scroll-pane{
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+
+.scroll-pane .viewport{
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+
+.optical2{
+    -fx-font-size: 10;
+    -fx-padding: 6px 6px 6px 6px;
+    -fx-background-color: rgba(235, 241, 63, 0.72);
+}
+.optical2:hover{
+    -fx-background-color: #9c8c24;;
+}
+
 .botones-media{
-    -fx-padding: 10px 35px 10px 35px;
+    -fx-padding: 10px 15px 10px 15px;
     -fx-background-color: rgba(231, 87, 243, 0.78);
 }
 .botones-media:hover{
-    -fx-background-color: #5ca5ed;;
+    -fx-background-color: #b85ced;;
 }
 
 .botones-baja{
@@ -170,4 +200,27 @@
 }
 .botones-baja:hover{
     -fx-background-color: #83f49a;;
+}
+
+.botones-exit{
+    -fx-padding: 5px 40px 5px 40px;
+    -fx-background-color: rgba(200, 26, 26, 0.82);
+}
+.botones-exit:hover{
+    -fx-background-color: #f48383;;
+}
+
+.botones-oden{
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-background-color: rgba(177, 26, 200, 0.82);
+}
+.botones-oden:hover{
+    -fx-background-color: #d883f4;;
+}
+
+
+
+.text-orden{
+    -fx-text-fill: white;
+    -fx-font-size: 9px;
 }

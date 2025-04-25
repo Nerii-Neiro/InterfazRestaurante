@@ -2,6 +2,7 @@ package com.example.demo2.vistas;
 
 import com.example.demo2.Componenetes.ButtonCell;
 import com.example.demo2.Componenetes.ButtonCell_reservaciones;
+import com.example.demo2.VentanaPrincipal;
 import com.example.demo2.modulos.ClientesDAO;
 import com.example.demo2.modulos.ReservacionesDAO;
 import javafx.geometry.Insets;
@@ -74,6 +75,7 @@ public class vista_reservaciones extends Stage{
 
         this.salir.setOnAction(event->{
             this.close();
+            new VentanaPrincipal();
         });
         this.agregar.setOnAction(event->{
             new reservaciones(table_reservaciones,null,"Nueva Reservacion:");

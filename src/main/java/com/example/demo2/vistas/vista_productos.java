@@ -2,6 +2,8 @@ package com.example.demo2.vistas;
 
 import com.example.demo2.Componenetes.ButtonCell;
 import com.example.demo2.Componenetes.ButtonCell_productos;
+import com.example.demo2.VentanaPrincipal;
+import com.example.demo2.modulos.CategoriasDAO;
 import com.example.demo2.modulos.ClientesDAO;
 import com.example.demo2.modulos.ProductosDAO;
 import javafx.geometry.Insets;
@@ -9,10 +11,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import java.io.File;
 
 public class vista_productos extends Stage{
 
@@ -73,6 +78,7 @@ public class vista_productos extends Stage{
 
         this.salir.setOnAction(event->{
             this.close();
+            new VentanaPrincipal();
         });
         this.agregar.setOnAction(event->{
             new productos(table_productos,null,"Nuevo Producto:");
@@ -101,11 +107,38 @@ public class vista_productos extends Stage{
         TableColumn<ProductosDAO,String> table_email = new TableColumn<>("Id_Categoria");
         table_email.setCellValueFactory(new PropertyValueFactory<>("id_categoria"));
 
+        //para imagen
+        TableColumn<ProductosDAO,String> table_imagen = new TableColumn<>("Imagen");
+        table_imagen.setCellValueFactory(new PropertyValueFactory<>("imagen"));
+        table_imagen.setCellFactory(tc -> new TableCell<>() {
+            private final ImageView imageView = new ImageView();
+
+            @Override
+            protected void updateItem(String ruta, boolean empty) {
+                super.updateItem(ruta, empty);
+                if (empty || ruta == null) {
+                    setGraphic(null);
+                } else {
+                    try {
+                        // Solo usa la ruta relativa directamente
+                        File file = new File(ruta);
+                        Image image = new Image(file.toURI().toString(), 50, 50, true, true);
+                        imageView.setImage(image);
+                        setGraphic(imageView);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        setText("No se pudo cargar");
+                    }
+                }
+            }
+        });
+
         table_id.setPrefWidth(250);
         table_nombre.setPrefWidth(250);
         table_direccion.setPrefWidth(250);
         table_telefono.setPrefWidth(250);
         table_email.setPrefWidth(250);
+        table_imagen.setPrefWidth(250);
 
         TableColumn<ProductosDAO,String> editar_ = new TableColumn<>("Editar");
         editar_.setCellFactory(new Callback<TableColumn<ProductosDAO, String>, TableCell<ProductosDAO, String>>() {
@@ -122,7 +155,7 @@ public class vista_productos extends Stage{
             }
         });
 
-        this.table_productos.getColumns().addAll(table_id,table_nombre,table_direccion,table_telefono,table_email,editar_,eliminar_);
+        this.table_productos.getColumns().addAll(table_id,table_nombre,table_direccion,table_telefono,table_email,table_imagen,editar_,eliminar_);
         this.table_productos.setItems(objeto_clientes.SELECT());
     }
 

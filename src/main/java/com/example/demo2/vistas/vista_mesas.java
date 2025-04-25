@@ -2,6 +2,7 @@ package com.example.demo2.vistas;
 
 import com.example.demo2.Componenetes.ButtonCell;
 import com.example.demo2.Componenetes.ButtonCell_mesas;
+import com.example.demo2.VentanaPrincipal;
 import com.example.demo2.modulos.ClientesDAO;
 import com.example.demo2.modulos.MesasDAO;
 import javafx.geometry.Insets;
@@ -73,6 +74,7 @@ public class vista_mesas extends Stage{
 
         this.salir.setOnAction(event->{
             this.close();
+            new VentanaPrincipal();
         });
         this.agregar.setOnAction(event->{
             new mesas(table_mesas,null,"Nueva Mesa:");

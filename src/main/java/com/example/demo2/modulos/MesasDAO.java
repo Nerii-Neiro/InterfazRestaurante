@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MesasDAO {
 
@@ -65,6 +67,21 @@ public class MesasDAO {
         catch(Exception e){
             e.printStackTrace();
         }
+
+        return lista;
+    }
+
+    public List<Mesa> Obtener_Mesas(){
+        String query = "SELECT * FROM Mesas";
+        List<Mesa> lista= new ArrayList<>();
+        try{
+            Statement stmt = conexion.connection.createStatement();
+            ResultSet result = stmt.executeQuery(query);
+            while(result.next()){
+                lista.add(new Mesa(result.getInt("id_mesa"),result.getInt("capacidad"),result.getString("tipo")));
+            }
+        }
+        catch(Exception e){}
 
         return lista;
     }

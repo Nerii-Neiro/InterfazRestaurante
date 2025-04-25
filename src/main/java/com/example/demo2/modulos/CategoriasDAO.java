@@ -15,15 +15,18 @@ public class CategoriasDAO {
     private String nombre;
     private String descripcion;
 
-    public void crear_categoria(String nombre,String descripcion){
+    private String imagen;
+
+    public void crear_categoria(String nombre,String descripcion,String imagen){
         this.nombre= nombre;
         this.descripcion=descripcion;
+        this.imagen=imagen;
     }
 
 
     public void INSERT(){
 
-        String query = "INSERT INTO Categorias(nombre,descripcion) " + "VALUES ('"+nombre+"','"+descripcion+"')";
+        String query = "INSERT INTO Categorias(nombre,descripcion,imagen) " + "VALUES ('"+nombre+"','"+descripcion+"','"+imagen+"')";
 
         try{
             Statement stm= conexion.connection.createStatement();
@@ -37,7 +40,7 @@ public class CategoriasDAO {
     }
 
     public void UPDATE(){
-        String query = "UPDATE Categorias SET nombre = '"+nombre+"',descripcion = '"+descripcion+"' WHERE id_categoria="+id_categoria;
+        String query = "UPDATE Categorias SET nombre = '"+nombre+"',descripcion = '"+descripcion+"', imagen='"+imagen+"' WHERE id_categoria="+id_categoria;
         try{
             Statement stm= conexion.connection.createStatement();
             stm.executeUpdate(query);
@@ -61,6 +64,7 @@ public class CategoriasDAO {
                 temp_categoria.setId_categoria(result.getInt("id_categoria"));
                 temp_categoria.setNombre(result.getString("nombre"));
                 temp_categoria.setDescripcion(result.getString("descripcion"));
+                temp_categoria.setImagen(result.getString("imagen"));
                 lista.add(temp_categoria);
             }
         }
@@ -78,7 +82,7 @@ public class CategoriasDAO {
              Statement stmt = conexion.connection.createStatement();
              ResultSet result = stmt.executeQuery(query);
              while(result.next()){
-                lista.add(new Categoria(result.getInt("id_categoria"),result.getString("nombre"),result.getString("descripcion")));
+                lista.add(new Categoria(result.getInt("id_categoria"),result.getString("nombre"),result.getString("descripcion"),result.getString("imagen")));
              }
          }
          catch(Exception e){}
@@ -126,6 +130,14 @@ public class CategoriasDAO {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }
 

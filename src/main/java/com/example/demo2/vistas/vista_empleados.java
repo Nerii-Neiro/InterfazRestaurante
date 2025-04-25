@@ -3,6 +3,7 @@ package com.example.demo2.vistas;
 import com.example.demo2.Componenetes.ButtonCell;
 import com.example.demo2.Componenetes.ButtonCell_empleados;
 import com.example.demo2.Componenetes.ButtonCell_insumos;
+import com.example.demo2.VentanaPrincipal;
 import com.example.demo2.modulos.ClientesDAO;
 import com.example.demo2.modulos.EmpleadosDAO;
 import javafx.geometry.Insets;
@@ -75,6 +76,7 @@ public class vista_empleados extends Stage{
 
         this.salir.setOnAction(event->{
             this.close();
+            new VentanaPrincipal();
         });
         this.agregar.setOnAction(event->{
             new empleados(table_empleados,null,"Nuevo Empleado:");
