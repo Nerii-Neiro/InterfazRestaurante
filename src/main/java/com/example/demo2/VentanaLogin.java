@@ -46,7 +46,8 @@ public class VentanaLogin extends Stage {
         String correo = correoField.getText();
         String contraseña = contraseñaField.getText();
 
-        try (Connection conn = HelloApplication.con.connection) {  // Usamos la conexión global
+        try {
+            Connection conn = HelloApplication.con.connection;  // Usamos la conexión global
 
             // Primero buscar en empleados
             PreparedStatement stmtEmpleado = conn.prepareStatement(
