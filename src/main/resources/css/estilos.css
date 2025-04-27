@@ -1,0 +1,25 @@
+.vbox-cliente {
+    -fx-background-color: #f0f8ff;
+}
+
+.vbox-admin {
+    -fx-background-color: #e6ffe6;
+}
+
+.titulo-admin {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.button {
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-color: #008cba;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+
+.button:hover {
+    -fx-background-color: #005f5f;
+}
