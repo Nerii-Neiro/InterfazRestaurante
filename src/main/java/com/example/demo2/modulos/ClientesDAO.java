@@ -12,17 +12,19 @@ public class ClientesDAO {
     private String direccion;
     private String telefono;
     private String email;
+    private String password; //nueva columna
 
-    public void crear_cliente(String nombre,String direccion,String telefono,String email){
+    public void crear_cliente(String nombre,String direccion,String telefono,String email,String password){
           this.nombre= nombre;
           this.direccion=direccion;
           this.telefono=telefono;
           this.email=email;
+          this.password=password;
   }
 
     public void INSERT(){
 
-        String query = "INSERT INTO Clientes(nombre,direccion,telefono,email) " + "VALUES ('"+nombre+"','"+direccion+"','"+telefono+"','"+email+"')";
+        String query = "INSERT INTO Clientes(nombre,direccion,telefono,email,password) " + "VALUES ('"+nombre+"','"+direccion+"','"+telefono+"','"+email+"','"+password+"')";
 
         try{
           Statement stm= conexion.connection.createStatement();
@@ -123,5 +125,13 @@ public class ClientesDAO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

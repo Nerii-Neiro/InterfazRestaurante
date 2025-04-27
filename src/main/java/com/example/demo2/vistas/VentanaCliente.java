@@ -35,13 +35,13 @@ public class VentanaCliente extends Stage {
     }
 
     private void hacerReservacion() {
-        // Aquí puedes abrir la ventana de reservación
-        System.out.println("Reservación solicitada.");
+        ReservacionCliente reservacionWindow = new ReservacionCliente();
+        reservacionWindow.show();
     }
 
     private void solicitarFactura() {
-        // Aquí puedes abrir la ventana de facturación
-        System.out.println("Factura solicitada.");
+        FacturaCliente facturaWindow = new FacturaCliente();
+        facturaWindow.show();
     }
 }
 
