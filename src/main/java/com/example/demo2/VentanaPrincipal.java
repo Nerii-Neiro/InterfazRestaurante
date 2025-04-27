@@ -69,6 +69,7 @@ public class VentanaPrincipal extends Stage {
 
     private double s_total= 0.0;
     private int cantidad_productos=0;
+
     private Label mesa_field;
 
     private VBox productos_interno;
