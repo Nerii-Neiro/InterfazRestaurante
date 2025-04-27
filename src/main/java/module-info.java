@@ -13,4 +13,6 @@ module com.example.demo2 {
     requires java.sql;
     requires org.apache.pdfbox;
     opens com.example.demo2.modulos;
+    opens com.example.demo2.vistas to javafx.base;
+    exports com.example.demo2.vistas;
 }

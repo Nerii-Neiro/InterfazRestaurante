@@ -89,6 +89,34 @@ public class OrdenesDAO {
         return lista;
     }
 
+    public ObservableList<OrdenesDAO> SELECT_uno(int id_empleado_o){
+        String query = "SELECT * FROM Ordenes WHERE id_empleado="+id_empleado_o;
+        ObservableList<OrdenesDAO> lista = FXCollections.observableArrayList();
+        OrdenesDAO temp_orden;
+        try{
+            Statement stm = conexion.connection.createStatement();
+            ResultSet result = stm.executeQuery(query);
+            while(result.next()){
+                temp_orden= new OrdenesDAO();
+                temp_orden.setId_orden(result.getInt("id_orden"));
+                temp_orden.setFecha(result.getString("fecha"));
+                temp_orden.setHora(result.getString("hora"));
+                temp_orden.setDescripcion(result.getString("descripcion"));
+                temp_orden.setNotas(result.getString("notas"));
+                temp_orden.setId_cliente(result.getInt("id_cliente"));
+                temp_orden.setId_mesa(result.getInt("id_mesa"));
+                temp_orden.setId_empleado(result.getInt("id_empleado"));
+                temp_orden.setTotal(result.getDouble("total"));
+                lista.add(temp_orden);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
     public Orden orden_crear(){
         String query = "SELECT * FROM Ordenes ORDER BY  id_orden DESC LIMIT 1";
         try{

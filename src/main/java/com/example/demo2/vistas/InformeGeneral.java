@@ -23,12 +23,12 @@ public class InformeGeneral extends Stage {
         boton_liberar.setOnAction(event -> {this.close();});
         boton_liberar.getStyleClass().add("botones-alta");
         desc = new Label(Message);
-        desc.setStyle("-fx-font-size: 12px; -fx-background-color: #698000;");
+        desc.setStyle("-fx-font-size: 14px; -fx-background-color: #698000;");
         contenedor=new VBox(desc,boton_liberar);
         contenedor.setSpacing(10);
         contenedor.setPadding(new Insets( 10));
         contenedor.setAlignment(Pos.TOP_CENTER);
-        escena_principal = new Scene(contenedor,700,200);
+        escena_principal = new Scene(contenedor,700,500);
         escena_principal.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         escena_principal.getStylesheets().add(getClass().getResource("/css/estilo_principal.css").toString());
         this.setTitle("Sistema Informacion");

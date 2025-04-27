@@ -28,7 +28,9 @@ public class VentanaLogin extends Stage {
         contraseñaField = new PasswordField();
 
         Button loginButton = new Button("Iniciar Sesión");
+        loginButton.getStyleClass().add("botones-exit");
         Button registroButton = new Button("Registrarse");
+        registroButton.getStyleClass().add("botones-exit");
 
         loginButton.setOnAction(e -> login());
         registroButton.setOnAction(e -> abrirRegistro());

@@ -85,8 +85,8 @@ public class EmpleadosDAO {
                 temp_empleado.setNss(result.getString("nss"));
                 temp_empleado.setHorario(result.getString("horario"));
                 temp_empleado.setFecha_ingreso(result.getString("fecha_ingreso"));
-                temp_empleado.setFecha_ingreso(result.getString("password"));
-                temp_empleado.setFecha_ingreso(result.getString("email"));
+                temp_empleado.setPassword(result.getString("password"));
+                temp_empleado.setEmail(result.getString("email"));
                 lista.add(temp_empleado);
             }
         }

@@ -25,15 +25,12 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.ArrayList;
+import java.util.*;
 
 import java.io.IOException;
-import java.util.Date;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
 
 import javafx.scene.layout.HBox;
 
@@ -158,75 +155,77 @@ public class VentanaPrincipal extends Stage {
         Label tit_empleado = new Label(" LOGIN--->          EmpleadoID: "+id_empleado_orden+" Nombre: "+NOMBRE_EMPLOYE);
         titulo_sistema =  new HBox(titl_s,tit_empleado);
 
-
+        System.out.println(email);
         contennedor_apartados = new HBox(15);
         String alterm="";
-        String[] nombres = {"Clientes","Categorias","Empleados","Insumos","Mesas","Ordenes","Productos","Proveedores","Reservaciones","DetOrden","DetProd","R:M"};
-        for(int iterator =0 ;iterator<12;iterator++){
-            BotonPersonal bton = new BotonPersonal(nombres[iterator]);
-            switch(iterator){
-                case 0:
-                    alterm="/imagenes/clientes.png";
-                    bton.setOnAction(event->{new vista_clientes(this);});
-                    break;
+        if(TIPO_EMP==1){
+            String[] nombres = {"Clientes","Categorias","Empleados","Insumos","Mesas","Ordenes","Productos","Proveedores","Reservaciones","DetOrden","DetProd","R:M"};
+            for(int iterator =0 ;iterator<12;iterator++){
+                BotonPersonal bton = new BotonPersonal(nombres[iterator]);
+                switch(iterator){
+                    case 0:
+                        alterm="/imagenes/clientes.png";
+                        bton.setOnAction(event->{new vista_clientes(this);});
+                        break;
                     case 1:
                         alterm="/imagenes/categorias.png";
                         bton.setOnAction(event->{new vista_categorias(this);});
                         break;
-                        case 2:
-                            alterm="/imagenes/empleados.png";
-                            bton.setOnAction(event->{new vista_empleados(this);});
-                            break;
-                            case 3:
-                                alterm="/imagenes/insumos.png";
-                                bton.setOnAction(event->{new vista_insumos(this);});
-                                break;
-                                case 4:
-                                    alterm="/imagenes/juego-de-mesa.png";
-                                    bton.setOnAction(event->{new vista_mesas(this);});
-                                    break;
-                                    case 5:
-                                        alterm="/imagenes/ordenes.png";
-                                        bton.setOnAction(event->{new vista_ordenes(this);});
-                                        break;
-                                        case 6:
-                                            alterm="/imagenes/productos.png";
-                                            bton.setOnAction(event->{new vista_productos(this);});
-                                            break;
-                                            case 7:
-                                                alterm="/imagenes/proveedor.png";
-                                                bton.setOnAction(event->{new vista_proveedores(this);});
-                                                break;
-                                                case 8:
-                                                    alterm="/imagenes/reservacion.png";
-                                                    bton.setOnAction(event->{new vista_reservaciones(this);});
-                                                    break;
-                                                    case 9:
-                                                        alterm="/imagenes/detalleorden.png";
-                                                        bton.setOnAction(event->{new vista_detorden(this);});
-                                                        break;
-                                                        case 10:
-                                                            alterm="/imagenes/detalleproducto.png";
-                                                            bton.setOnAction(event->{new vista_detproducto(this);});
-                                                            break;
-                                                            case 11:
-                                                                alterm="/imagenes/reservacionmesa.png";
-                                                                bton.setOnAction(event->{new vista_reservacionmesa(this);});
-                                                                break;
+                    case 2:
+                        alterm="/imagenes/empleados.png";
+                        bton.setOnAction(event->{new vista_empleados(this);});
+                        break;
+                    case 3:
+                        alterm="/imagenes/insumos.png";
+                        bton.setOnAction(event->{new vista_insumos(this);});
+                        break;
+                    case 4:
+                        alterm="/imagenes/juego-de-mesa.png";
+                        bton.setOnAction(event->{new vista_mesas(this);});
+                        break;
+                    case 5:
+                        alterm="/imagenes/ordenes.png";
+                        bton.setOnAction(event->{new vista_ordenes(this);});
+                        break;
+                    case 6:
+                        alterm="/imagenes/productos.png";
+                        bton.setOnAction(event->{new vista_productos(this);});
+                        break;
+                    case 7:
+                        alterm="/imagenes/proveedor.png";
+                        bton.setOnAction(event->{new vista_proveedores(this);});
+                        break;
+                    case 8:
+                        alterm="/imagenes/reservacion.png";
+                        bton.setOnAction(event->{new vista_reservaciones(this);});
+                        break;
+                    case 9:
+                        alterm="/imagenes/detalleorden.png";
+                        bton.setOnAction(event->{new vista_detorden(this);});
+                        break;
+                    case 10:
+                        alterm="/imagenes/detalleproducto.png";
+                        bton.setOnAction(event->{new vista_detproducto(this);});
+                        break;
+                    case 11:
+                        alterm="/imagenes/reservacionmesa.png";
+                        bton.setOnAction(event->{new vista_reservacionmesa(this);});
+                        break;
 
+                }
+                ImageView img = new ImageView(getClass().getResource(alterm).toString());
+                img.setFitWidth(30);
+                img.setFitHeight(30);
+                bton.setGraphic(img);
+                bton.setContentDisplay(ContentDisplay.TOP);
+                bton.getStyleClass().add("botones-alta");
+                contennedor_apartados.getChildren().add(bton);
             }
-            ImageView img = new ImageView(getClass().getResource(alterm).toString());
-            img.setFitWidth(30);
-            img.setFitHeight(30);
-            bton.setGraphic(img);
-            bton.setContentDisplay(ContentDisplay.TOP);
-            bton.getStyleClass().add("botones-alta");
-            contennedor_apartados.getChildren().add(bton);
+            Button boton_graficas = new Button("Graficas");
+            boton_graficas.setOnAction(event->{new Graficas();});
+            boton_graficas.getStyleClass().add("botones-alta");
+            contennedor_apartados.getChildren().add(boton_graficas);
         }
-        Button boton_graficas = new Button("Graficas");
-        boton_graficas.setOnAction(event->{new Graficas();});
-        boton_graficas.getStyleClass().add("botones-alta");
-        contennedor_apartados.getChildren().add(boton_graficas);
 
         cat_productos= new ProductosDAO();
         productos_lista = cat_productos.Obtener_Productos();
@@ -363,7 +362,7 @@ public class VentanaPrincipal extends Stage {
             new InformeGeneral("Datos Reseteados con Exito!!");
         });
         boton_iniciar_ventana_elementos.setOnAction(event->{
-
+            new VentanaELementos(id_empleado_orden,NOMBRE_EMPLOYE);
         });
 
         boton_outro= new Button("Otro");
@@ -373,7 +372,9 @@ public class VentanaPrincipal extends Stage {
         boton_outro.setGraphic(img_outro);
         boton_outro.setContentDisplay(ContentDisplay.LEFT);
         boton_outro.getStyleClass().add("botones-oden");
-        boton_outro.setOnAction(event->{});
+        boton_outro.setOnAction(event->{
+
+        });
         contenedor_uno = new HBox(new Label("Ord:"),total,cntidad_productos,mesa_field,NOM_CLIENTE,boton_refresh,boton_outro,boton_iniciar_ventana_elementos);
         contenedor_uno.setSpacing(20);
         contenedor_uno.setPadding(new Insets(25));
@@ -433,8 +434,15 @@ public class VentanaPrincipal extends Stage {
     boton_salir.getStyleClass().add("botones-exit");
         boton_ver_insumos= new Button("Ver");
         boton_opcion_insumos= new Button("Opciones");
-        boton_ver_insumos.setOnAction(event->{});
-        boton_opcion_insumos.setOnAction(event->{});
+        boton_ver_insumos.setOnAction(event->{
+            //new VentanaInsumos();
+        });
+        boton_opcion_insumos.setOnAction(event->{
+            //new GestionInsumos();
+        });
+
+        boton_ver_insumos.getStyleClass().add("botones-exit");
+        boton_opcion_insumos.getStyleClass().add("botones-exit");
 
         contenedor_cinco= new VBox(titulo_administrador,boton_login,boton_salir);
         contenedor_cinco.setPrefSize(300,400);
@@ -837,7 +845,7 @@ public class VentanaPrincipal extends Stage {
 
     public void checar_si_es_admin(){
         Empleado emp_t = emp.empleado_crear(id_empleado_orden);
-        if (emp_t.getEmail()=="admin@gmail.com"){
+        if ((emp_t.getEmail().equals("admin@gmail.com"))){
             TIPO_EMP=1;
             password=emp_t.getPassword();
         }
@@ -855,7 +863,7 @@ public class VentanaPrincipal extends Stage {
         nss=emp_t.getNss();
         horario=emp_t.getHorario();
         fecha_ingreso=emp_t.getFecha_ingreso();
-        email=emp_t.getCurp();
+        email=emp_t.getEmail();
 
     }
 

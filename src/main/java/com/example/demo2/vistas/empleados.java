@@ -58,7 +58,7 @@ public class empleados extends Stage {
             objeto=objeto_dao;
             this.nombre.setText(objeto.getNombre());
             this.rfc.setText(objeto.getRfc());
-            this.sueldo.setText(objeto.getTelefono());
+            this.sueldo.setText(String.valueOf(objeto.getSueldo()));
             this.puesto.setText(objeto.getPuesto());
             this.telefono.setText(objeto.getTelefono());
             this.nss.setText(objeto.getNss());
@@ -153,10 +153,10 @@ public class empleados extends Stage {
 
         VBox g7 = new VBox(txtnss,nss);
         VBox g8 = new VBox(txthorario,horario);
-        HBox contt_4 = new HBox(g5,g6);
+        HBox contt_4 = new HBox(g7,g8);
         VBox g9 = new VBox(txtemail,email);
         VBox g10 = new VBox(txtpassword,password);
-        HBox contt_5 = new HBox(g5,g6);
+        HBox contt_5 = new HBox(g9,g10);
 
         contenedor_padre=new VBox(title,contt,contt_2,contt_3,contt_4,contt_5,txtfechaingreso,fecha_ingreso,enviar,salir);
         contenedor_padre.setSpacing(5);
