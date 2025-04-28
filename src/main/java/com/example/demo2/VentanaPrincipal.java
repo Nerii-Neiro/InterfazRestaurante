@@ -433,12 +433,12 @@ public class VentanaPrincipal extends Stage {
     boton_login.getStyleClass().add("botones-exit");
     boton_salir.getStyleClass().add("botones-exit");
         boton_ver_insumos= new Button("Ver");
-        boton_opcion_insumos= new Button("Opciones");
+        boton_opcion_insumos= new Button("Añadir Insumo");
         boton_ver_insumos.setOnAction(event->{
-            //new VentanaInsumos();
+            new GestionInsumos();
         });
         boton_opcion_insumos.setOnAction(event->{
-            //new GestionInsumos();
+             insumos ventana_insumos =  new insumos(new TableView<>(),null,"Añadir Insumo");
         });
 
         boton_ver_insumos.getStyleClass().add("botones-exit");

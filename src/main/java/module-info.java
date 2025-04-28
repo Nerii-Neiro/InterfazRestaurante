@@ -12,6 +12,7 @@ module com.example.demo2 {
     requires mysql.connector.j;
     requires java.sql;
     requires org.apache.pdfbox;
+    requires jdk.xml.dom;
     opens com.example.demo2.modulos;
     opens com.example.demo2.vistas to javafx.base;
     exports com.example.demo2.vistas;

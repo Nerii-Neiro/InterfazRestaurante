@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InsumosDAO {
 
@@ -88,6 +90,24 @@ public class InsumosDAO {
             e.printStackTrace();
 
         }
+    }
+
+
+    public List<Insumos> Obtener_Insumos(){
+        String query = "SELECT * FROM Insumos";
+        List<Insumos> lista= new ArrayList<>();
+        try{
+            Statement stmt = conexion.connection.createStatement();
+            ResultSet result = stmt.executeQuery(query);
+            while(result.next()){
+                lista.add(new Insumos(result.getInt("id_insumo"),result.getString("nombre"),result.getInt("cantidad"),result.getString("descripcion"),result.getString("observciones"),result.getInt("id_proveedor")));
+            }
+        }
+        catch(Exception e){}
+
+
+
+        return lista;
     }
 
     public int getId_insumo() {
