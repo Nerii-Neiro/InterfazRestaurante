@@ -365,7 +365,7 @@ public class VentanaPrincipal extends Stage {
             new VentanaELementos(id_empleado_orden,NOMBRE_EMPLOYE);
         });
 
-        boton_outro= new Button("Otro");
+        boton_outro= new Button("Graficas_Ver");
         ImageView img_outro = new ImageView(getClass().getResource("/imagenes/agregar-producto.png").toString());
         img_outro.setFitWidth(30);
         img_outro.setFitHeight(30);
@@ -373,7 +373,12 @@ public class VentanaPrincipal extends Stage {
         boton_outro.setContentDisplay(ContentDisplay.LEFT);
         boton_outro.getStyleClass().add("botones-oden");
         boton_outro.setOnAction(event->{
-
+            if(TIPO_EMP==1){
+                new Graficas();
+            }
+            else{
+                new InformeGeneral("No eres Admin");
+            }
         });
         contenedor_uno = new HBox(new Label("Ord:"),total,cntidad_productos,mesa_field,NOM_CLIENTE,boton_refresh,boton_outro,boton_iniciar_ventana_elementos);
         contenedor_uno.setSpacing(20);
@@ -435,10 +440,21 @@ public class VentanaPrincipal extends Stage {
         boton_ver_insumos= new Button("Ver");
         boton_opcion_insumos= new Button("Añadir Insumo");
         boton_ver_insumos.setOnAction(event->{
-            new GestionInsumos();
+            if(TIPO_EMP==1){
+                new GestionInsumos();
+            }
+            else{
+                new InformeGeneral("No eres Admin");
+            }
         });
         boton_opcion_insumos.setOnAction(event->{
-             insumos ventana_insumos =  new insumos(new TableView<>(),null,"Añadir Insumo");
+            if(TIPO_EMP==1){
+                insumos ventana_insumos =  new insumos(new TableView<>(),null,"Añadir Insumo");
+            }
+            else{
+                new InformeGeneral("No eres Admin");
+            }
+
         });
 
         boton_ver_insumos.getStyleClass().add("botones-exit");

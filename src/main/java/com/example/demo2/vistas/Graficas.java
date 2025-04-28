@@ -321,79 +321,59 @@ public class Graficas extends Stage {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo PDF (*.pdf)", "*.pdf"));
         File file = fileChooser.showSaveDialog(stage);
-    
+
         if (file != null) {
             PDDocument document = new PDDocument();
             PDPage page = new PDPage();
             document.addPage(page);
-    
+
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+            // Configuración inicial
+            float margin = 50;
+            float yPosition = 750;
+            float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
+            float rowHeight = 20;
+            float cellMargin = 5;
+
+            // Título del reporte
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
             contentStream.beginText();
-            contentStream.newLineAtOffset(50, 750);
-    
-            // Título del reporte
+            contentStream.newLineAtOffset(margin, yPosition);
             contentStream.showText("INFORME DE ESTADÍSTICAS DEL RESTAURANTE");
-            contentStream.newLineAtOffset(0, -30);
-            
+            contentStream.endText();
+            yPosition -= 30;
+
             // Fecha actual
             contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(margin, yPosition);
             contentStream.showText("Fecha de generación: " + LocalDate.now());
-            contentStream.newLineAtOffset(0, -30);
-    
-            // Productos más vendidos
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            contentStream.showText("PRODUCTOS MÁS VENDIDOS:");
-            contentStream.newLineAtOffset(0, -20);
-            contentStream.setFont(PDType1Font.HELVETICA, 10);
-            writeProductosTableToPDF(contentStream, tablaProductosMasVendidos);
-    
-            // Ventas por día
-            contentStream.newLineAtOffset(0, -40);
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            contentStream.showText("VENTAS POR DÍA:");
-            contentStream.newLineAtOffset(0, -20);
-            contentStream.setFont(PDType1Font.HELVETICA, 10);
-            writeVentasTableToPDF(contentStream, tablaVentasPorDia);
-    
-            // Empleados con más ventas
-            contentStream.newLineAtOffset(0, -40);
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            contentStream.showText("EMPLEADOS CON MÁS VENTAS:");
-            contentStream.newLineAtOffset(0, -20);
-            contentStream.setFont(PDType1Font.HELVETICA, 10);
-            writeEmpleadosTableToPDF(contentStream, tablaEmpleadosConMasVentas);
-    
             contentStream.endText();
+            yPosition -= 40;
+
+            // Productos más vendidos
+            drawTableTitle(contentStream, "PRODUCTOS MÁS VENDIDOS:", margin, yPosition);
+            yPosition -= 25;
+            drawProductosTable(contentStream, tablaProductosMasVendidos, margin, yPosition, tableWidth, rowHeight, cellMargin);
+            yPosition -= (tablaProductosMasVendidos.getItems().size() + 1) * rowHeight + 20;
+
+            // Ventas por día
+            drawTableTitle(contentStream, "VENTAS POR DÍA:", margin, yPosition);
+            yPosition -= 25;
+            drawVentasTable(contentStream, tablaVentasPorDia, margin, yPosition, tableWidth, rowHeight, cellMargin);
+            yPosition -= (tablaVentasPorDia.getItems().size() + 1) * rowHeight + 20;
+
+            // Empleados con más ventas
+            drawTableTitle(contentStream, "EMPLEADOS CON MÁS VENTAS:", margin, yPosition);
+            yPosition -= 25;
+            drawEmpleadosTable(contentStream, tablaEmpleadosConMasVentas, margin, yPosition, tableWidth, rowHeight, cellMargin);
+
             contentStream.close();
-    
             document.save(file);
             document.close();
-    
+
             System.out.println("PDF guardado en: " + file.getAbsolutePath());
-        }
-    }
-    
-    private void writeProductosTableToPDF(PDPageContentStream contentStream, TableView<ProductoVendido> tabla) throws IOException {
-        for (ProductoVendido producto : tabla.getItems()) {
-            contentStream.showText(producto.getIdProducto() + " - " + producto.getNombreProducto() + 
-                                  ": " + producto.getCantidadVendida() + " unidades");
-            contentStream.newLineAtOffset(0, -15);
-        }
-    }
-    
-    private void writeVentasTableToPDF(PDPageContentStream contentStream, TableView<VentaDiaria> tabla) throws IOException {
-        for (VentaDiaria venta : tabla.getItems()) {
-            contentStream.showText("Fecha: " + venta.getFecha() + " - Total: $" + String.format("%.2f", venta.getTotalVentas()));
-            contentStream.newLineAtOffset(0, -15);
-        }
-    }
-    
-    private void writeEmpleadosTableToPDF(PDPageContentStream contentStream, TableView<EmpleadoVentas> tabla) throws IOException {
-        for (EmpleadoVentas empleado : tabla.getItems()) {
-            contentStream.showText(empleado.getIdEmpleado() + " - " + empleado.getNombreEmpleado() + 
-                                  ": " + empleado.getVentasRealizadas() + " ventas");
-            contentStream.newLineAtOffset(0, -15);
         }
     }
 
@@ -463,4 +443,116 @@ public class Graficas extends Stage {
             return ventasRealizadas;
         }
     }
+
+    private void drawTableTitle(PDPageContentStream contentStream, String title, float x, float y) throws IOException {
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(x, y);
+        contentStream.showText(title);
+        contentStream.endText();
+    }
+
+    private void drawProductosTable(PDPageContentStream contentStream, TableView<ProductoVendido> tabla,
+                                    float x, float y, float tableWidth, float rowHeight, float cellMargin) throws IOException {
+        final int numCols = 3;
+        final float colWidth = tableWidth / numCols;
+
+        // Dibujar encabezados
+        String[] headers = {"ID", "Producto", "Cantidad Vendida"};
+        drawTableRow(contentStream, x, y, colWidth, rowHeight, cellMargin, headers, true);
+        y -= rowHeight;
+
+        // Dibujar filas de datos
+        for (ProductoVendido producto : tabla.getItems()) {
+            String[] rowData = {
+                    String.valueOf(producto.getIdProducto()),
+                    producto.getNombreProducto(),
+                    String.valueOf(producto.getCantidadVendida())
+            };
+            drawTableRow(contentStream, x, y, colWidth, rowHeight, cellMargin, rowData, false);
+            y -= rowHeight;
+        }
+    }
+
+    private void drawVentasTable(PDPageContentStream contentStream, TableView<VentaDiaria> tabla,
+                                 float x, float y, float tableWidth, float rowHeight, float cellMargin) throws IOException {
+        final int numCols = 2;
+        final float colWidth = tableWidth / numCols;
+
+        // Dibujar encabezados
+        String[] headers = {"Fecha", "Total Ventas"};
+        drawTableRow(contentStream, x, y, colWidth, rowHeight, cellMargin, headers, true);
+        y -= rowHeight;
+
+        // Dibujar filas de datos
+        for (VentaDiaria venta : tabla.getItems()) {
+            String[] rowData = {
+                    venta.getFecha(),
+                    String.format("$%.2f", venta.getTotalVentas())
+            };
+            drawTableRow(contentStream, x, y, colWidth, rowHeight, cellMargin, rowData, false);
+            y -= rowHeight;
+        }
+    }
+
+    private void drawEmpleadosTable(PDPageContentStream contentStream, TableView<EmpleadoVentas> tabla,
+                                    float x, float y, float tableWidth, float rowHeight, float cellMargin) throws IOException {
+        final int numCols = 3;
+        final float colWidth = tableWidth / numCols;
+
+        // Dibujar encabezados
+        String[] headers = {"ID", "Empleado", "Ventas Realizadas"};
+        drawTableRow(contentStream, x, y, colWidth, rowHeight, cellMargin, headers, true);
+        y -= rowHeight;
+
+        // Dibujar filas de datos
+        for (EmpleadoVentas empleado : tabla.getItems()) {
+            String[] rowData = {
+                    String.valueOf(empleado.getIdEmpleado()),
+                    empleado.getNombreEmpleado(),
+                    String.valueOf(empleado.getVentasRealizadas())
+            };
+            drawTableRow(contentStream, x, y, colWidth, rowHeight, cellMargin, rowData, false);
+            y -= rowHeight;
+        }
+    }
+
+    private void drawTableRow(PDPageContentStream contentStream, float x, float y,
+                              float colWidth, float rowHeight, float cellMargin,
+                              String[] text, boolean isHeader) throws IOException {
+        // Dibujar las líneas de la tabla
+        contentStream.setLineWidth(0.5f);
+
+        // Línea horizontal superior
+        contentStream.moveTo(x, y);
+        contentStream.lineTo(x + colWidth * text.length, y);
+        contentStream.stroke();
+
+        // Línea horizontal inferior
+        contentStream.moveTo(x, y - rowHeight);
+        contentStream.lineTo(x + colWidth * text.length, y - rowHeight);
+        contentStream.stroke();
+
+        // Líneas verticales
+        for (int i = 0; i <= text.length; i++) {
+            contentStream.moveTo(x + i * colWidth, y);
+            contentStream.lineTo(x + i * colWidth, y - rowHeight);
+            contentStream.stroke();
+        }
+
+        // Escribir el texto en las celdas
+        contentStream.setFont(isHeader ? PDType1Font.HELVETICA_BOLD : PDType1Font.HELVETICA, 10);
+        for (int i = 0; i < text.length; i++) {
+            String cellText = text[i];
+            if (cellText.length() > 20) { // Truncar texto muy largo
+                cellText = cellText.substring(0, 17) + "...";
+            }
+
+            contentStream.beginText();
+            contentStream.newLineAtOffset(x + i * colWidth + cellMargin, y - rowHeight + cellMargin);
+            contentStream.showText(cellText);
+            contentStream.endText();
+        }
+    }
+
 }
