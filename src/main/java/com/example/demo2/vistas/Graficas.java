@@ -3,6 +3,7 @@ package com.example.demo2.vistas;
 import com.example.demo2.modulos.DetOrdenDAO;
 import com.example.demo2.modulos.OrdenesDAO;
 import com.example.demo2.modulos.ProductosDAO;
+import com.example.demo2.modulos.EmpleadosDAO; // Nuevo import necesario
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -36,7 +37,7 @@ public class Graficas extends Stage {
     private TableView<ProductoVendido> tablaProductosMasVendidos;
     private TableView<VentaDiaria> tablaVentasPorDia;
     private TableView<EmpleadoVentas> tablaEmpleadosConMasVentas;
-    
+
     private BarChart<String, Number> graficaProductos;
     private BarChart<String, Number> graficaVentas;
     private BarChart<String, Number> graficaEmpleados;
@@ -44,7 +45,7 @@ public class Graficas extends Stage {
 
     public Graficas() {
         this.setTitle("Estadísticas y Gráficas");
-    
+
         // Inicializar gráficas
         final CategoryAxis xAxisProductos = new CategoryAxis();
         final NumberAxis yAxisProductos = new NumberAxis();
@@ -52,31 +53,31 @@ public class Graficas extends Stage {
         yAxisProductos.setLabel("Cantidad Vendida");
         graficaProductos = new BarChart<>(xAxisProductos, yAxisProductos);
         graficaProductos.setTitle("Productos Más Vendidos");
-        
+
         final CategoryAxis xAxisVentas = new CategoryAxis();
         final NumberAxis yAxisVentas = new NumberAxis();
         xAxisVentas.setLabel("Fecha");
         yAxisVentas.setLabel("Total Ventas");
         graficaVentas = new BarChart<>(xAxisVentas, yAxisVentas);
         graficaVentas.setTitle("Ventas por Día");
-        
+
         final CategoryAxis xAxisEmpleados = new CategoryAxis();
         final NumberAxis yAxisEmpleados = new NumberAxis();
         xAxisEmpleados.setLabel("Empleados");
         yAxisEmpleados.setLabel("Ventas Realizadas");
         graficaEmpleados = new BarChart<>(xAxisEmpleados, yAxisEmpleados);
         graficaEmpleados.setTitle("Empleados con Más Ventas");
-    
+
         // Crear las tablas
         tablaProductosMasVendidos = crearTablaProductos();
         tablaVentasPorDia = crearTablaVentas();
         tablaEmpleadosConMasVentas = crearTablaEmpleados();
-    
+
         // Cargar datos
         cargarDatosProductosMasVendidos();
         cargarDatosVentasPorDia();
         cargarDatosEmpleadosConMasVentas();
-    
+
         Button exportButton = new Button("Exportar a PDF");
         exportButton.getStyleClass().add("botones-exit");
         exportButton.setOnAction(e -> {
@@ -86,179 +87,191 @@ public class Graficas extends Stage {
                 ex.printStackTrace();
             }
         });
-    
+
         Button closeButton = new Button("Cerrar");
         closeButton.getStyleClass().add("botones-exit");
         closeButton.setOnAction(e -> this.close());
-    
+
         HBox buttonBox = new HBox(10, exportButton, closeButton);
         buttonBox.setPadding(new Insets(10));
-    
+
         // Secciones con título y contenido
         Label labelProductos = new Label("Productos Más Vendidos");
         labelProductos.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
         VBox seccionProductos = new VBox(10, labelProductos, graficaProductos, tablaProductosMasVendidos);
-        
+
         Label labelVentas = new Label("Ventas por Día");
         labelVentas.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
         VBox seccionVentas = new VBox(10, labelVentas, graficaVentas, tablaVentasPorDia);
-        
+
         Label labelEmpleados = new Label("Empleados con Más Ventas");
         labelEmpleados.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
         VBox seccionEmpleados = new VBox(10, labelEmpleados, graficaEmpleados, tablaEmpleadosConMasVentas);
-    
+
         VBox vbox = new VBox(10, buttonBox, seccionProductos, seccionVentas, seccionEmpleados);
         vbox.setSpacing(20);
         vbox.setPadding(new Insets(10));
         vbox.getStyleClass().add("fondo_interf");
         ScrollPane scroll_2 = new ScrollPane(vbox);
-        //scroll_2.setPrefHeight(400);
         scroll_2.setFitToWidth(true);
         scroll_2.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-    
+
         Scene scene = new Scene(scroll_2, 800, 900);
         scene.getStylesheets().add(getClass().getResource("/css/estilo_principal.css").toString());
         this.setScene(scene);
         this.show();
     }
-    
+
     private void cargarDatosProductosMasVendidos() {
-        // Obtener datos de productos vendidos
         DetOrdenDAO detOrdenDAO = new DetOrdenDAO();
         ObservableList<DetOrdenDAO> detallesOrdenes = detOrdenDAO.SELECT();
-        
+
         // Agrupar por producto y sumar cantidades
         Map<Integer, Integer> ventasPorProducto = new HashMap<>();
         Map<Integer, String> nombresProductos = new HashMap<>();
-        
+
+        // Primero obtener todos los productos únicos para minimizar consultas a la base de datos
+        ProductosDAO productoDAO = new ProductosDAO();
+        ObservableList<ProductosDAO> todosProductos = productoDAO.SELECT();
+        Map<Integer, String> mapaNombresProductos = todosProductos.stream()
+                .collect(Collectors.toMap(ProductosDAO::getId_producto, ProductosDAO::getNombre));
+
         for (DetOrdenDAO detalle : detallesOrdenes) {
             int idProducto = detalle.getId_producto();
             int cantidad = detalle.getCantidad();
-            
+
             ventasPorProducto.put(idProducto, ventasPorProducto.getOrDefault(idProducto, 0) + cantidad);
-            
-            // Obtener nombre del producto
-            ProductosDAO productoDAO = new ProductosDAO();
-            productoDAO.setId_producto(idProducto);
-            ObservableList<ProductosDAO> productos = productoDAO.SELECT();
-            if (!productos.isEmpty()) {
-                nombresProductos.put(idProducto, productos.get(0).getNombre());
-            }
+
+            // Obtener nombre del producto del mapa
+            nombresProductos.put(idProducto, mapaNombresProductos.getOrDefault(idProducto, "Producto " + idProducto));
         }
-        
+
         // Ordenar por cantidad vendida (mayor a menor)
         Map<Integer, Integer> productosOrdenados = ventasPorProducto.entrySet()
                 .stream()
                 .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
-                .limit(10) // Mostrar solo los 10 más vendidos
+                .limit(10)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
                         (e1, e2) -> e1,
                         LinkedHashMap::new
                 ));
-        
+
         // Añadir a la tabla y la gráfica
         ObservableList<ProductoVendido> productosList = FXCollections.observableArrayList();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Cantidad Vendida");
-        
+
         for (Map.Entry<Integer, Integer> entry : productosOrdenados.entrySet()) {
             int idProducto = entry.getKey();
             int cantidadVendida = entry.getValue();
-            String nombreProducto = nombresProductos.getOrDefault(idProducto, "Producto " + idProducto);
-            
+            String nombreProducto = nombresProductos.get(idProducto);
+
             productosList.add(new ProductoVendido(idProducto, nombreProducto, cantidadVendida));
             series.getData().add(new XYChart.Data<>(nombreProducto, cantidadVendida));
         }
-        
+
         tablaProductosMasVendidos.setItems(productosList);
+        graficaProductos.getData().clear(); // Limpiar datos anteriores
         graficaProductos.getData().add(series);
     }
-    
+
     private void cargarDatosVentasPorDia() {
         // Obtener datos de ventas por día
         OrdenesDAO ordenesDAO = new OrdenesDAO();
         ObservableList<OrdenesDAO> ordenes = ordenesDAO.SELECT();
-        
+
         // Agrupar por fecha y sumar totales
         Map<String, Double> ventasPorDia = new HashMap<>();
-        
+
         for (OrdenesDAO orden : ordenes) {
             String fecha = orden.getFecha();
             double total = orden.getTotal();
-            
+
             ventasPorDia.put(fecha, ventasPorDia.getOrDefault(fecha, 0.0) + total);
         }
-        
+
         // Ordenar por fecha
         Map<String, Double> ventasOrdenadas = ventasPorDia.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
-                .limit(10) // Mostrar solo los últimos 10 días
+                .limit(10)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
                         (e1, e2) -> e1,
                         LinkedHashMap::new
                 ));
-        
+
         // Añadir a la tabla y la gráfica
         ObservableList<VentaDiaria> ventasList = FXCollections.observableArrayList();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Total Ventas");
-        
+
         for (Map.Entry<String, Double> entry : ventasOrdenadas.entrySet()) {
             String fecha = entry.getKey();
             double total = entry.getValue();
-            
+
             ventasList.add(new VentaDiaria(fecha, total));
             series.getData().add(new XYChart.Data<>(fecha, total));
         }
-        
+
         tablaVentasPorDia.setItems(ventasList);
+        graficaVentas.getData().clear();
         graficaVentas.getData().add(series);
     }
-    
+
     private void cargarDatosEmpleadosConMasVentas() {
-        // Obtener datos de ventas por empleado
         OrdenesDAO ordenesDAO = new OrdenesDAO();
         ObservableList<OrdenesDAO> ordenes = ordenesDAO.SELECT();
-        
+
         // Agrupar por empleado y contar órdenes
         Map<Integer, Integer> ventasPorEmpleado = new HashMap<>();
-        
+        Map<Integer, String> nombresEmpleados = new HashMap<>();
+
+        // Primero obtener todos los empleados para minimizar consultas
+        EmpleadosDAO empleadoDAO = new EmpleadosDAO();
+        ObservableList<EmpleadosDAO> todosEmpleados = empleadoDAO.SELECT();
+        Map<Integer, String> mapaNombresEmpleados = todosEmpleados.stream()
+                .collect(Collectors.toMap(EmpleadosDAO::getId_empleado, e -> e.getNombre()));
+
         for (OrdenesDAO orden : ordenes) {
             int idEmpleado = orden.getId_empleado();
             ventasPorEmpleado.put(idEmpleado, ventasPorEmpleado.getOrDefault(idEmpleado, 0) + 1);
+
+            // Obtener nombre del empleado del mapa
+            nombresEmpleados.put(idEmpleado, mapaNombresEmpleados.getOrDefault(idEmpleado, "Empleado " + idEmpleado));
         }
-        
+
         // Ordenar por cantidad de ventas (mayor a menor)
         Map<Integer, Integer> empleadosOrdenados = ventasPorEmpleado.entrySet()
                 .stream()
                 .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
-                .limit(10) // Mostrar solo los 10 con más ventas
+                .limit(10)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
                         (e1, e2) -> e1,
                         LinkedHashMap::new
                 ));
-        
+
         // Añadir a la tabla y la gráfica
         ObservableList<EmpleadoVentas> empleadosList = FXCollections.observableArrayList();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Ventas Realizadas");
-        
+
         for (Map.Entry<Integer, Integer> entry : empleadosOrdenados.entrySet()) {
             int idEmpleado = entry.getKey();
             int cantidadVentas = entry.getValue();
-            
-            empleadosList.add(new EmpleadoVentas(idEmpleado, "Empleado " + idEmpleado, cantidadVentas));
-            series.getData().add(new XYChart.Data<>("Empleado " + idEmpleado, cantidadVentas));
+            String nombreEmpleado = nombresEmpleados.get(idEmpleado);
+
+            empleadosList.add(new EmpleadoVentas(idEmpleado, nombreEmpleado, cantidadVentas));
+            series.getData().add(new XYChart.Data<>(nombreEmpleado, cantidadVentas));
         }
-        
+
         tablaEmpleadosConMasVentas.setItems(empleadosList);
+        graficaEmpleados.getData().clear();
         graficaEmpleados.getData().add(series);
     }
 
